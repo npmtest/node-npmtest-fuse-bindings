@@ -1,0 +1,895 @@
+<html lang="en"><head>
+    <title>Code coverage report for node-npmtest-fuse-bindings/node_modules/fuse-bindings/index.js</title>
+    <meta charset="utf-8">
+    <style>
+        body, html {
+            margin:0; padding: 0;
+        }
+        body {
+            font-family: Arial, Helvetica;
+            font-size: 10pt;
+        }
+        div.header, div.footer {
+            background: #eee;
+            padding: 1em;
+        }
+        div.header {
+            height: 160px;
+            padding: 0 1em 0 1em;
+            z-index: 100;
+            position: fixed;
+            top: 0;
+            border-bottom: 1px solid #666;
+            width: 100%;
+        }
+        div.footer {
+            border-top: 1px solid #666;
+        }
+        div.body {
+            margin-top: 170px;
+        }
+        div.meta {
+            font-size: 90%;
+            text-align: center;
+        }
+        h1, h2, h3 {
+            font-weight: normal;
+        }
+        h1 {
+            font-size: 12pt;
+        }
+        h2 {
+            font-size: 10pt;
+        }
+        pre {
+            font-family: Menlo, Monaco, Consolas, Courier New, monospace;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            tab-size: 2;
+        }
+
+        div.path { font-size: 110%; }
+        div.path a:link, div.path a:visited { color: #000; }
+        table.coverage { border-collapse: collapse; margin:0; padding: 0 }
+
+        table.coverage td {
+            margin: 0;
+            padding: 0;
+            color: #111;
+            vertical-align: top;
+        }
+        table.coverage td.line-count {
+            width: 50px;
+            text-align: right;
+            padding-right: 5px;
+        }
+        table.coverage td.line-coverage {
+            color: #777 !important;
+            text-align: right;
+            border-left: 1px solid #666;
+            border-right: 1px solid #666;
+        }
+
+        table.coverage td.text {
+        }
+
+        table.coverage td span.cline-any {
+            display: inline-block;
+            padding: 0 5px;
+            width: 40px;
+        }
+        table.coverage td span.cline-neutral {
+            background: #eee;
+        }
+        table.coverage td span.cline-yes {
+            background: #b5d592;
+            color: #999;
+        }
+        table.coverage td span.cline-no {
+            background: #fc8c84;
+        }
+
+        .cstat-yes { color: #111; }
+        .cstat-no { background: #fc8c84; color: #111; }
+        .fstat-no { background: #ffc520; color: #111 !important; }
+        .cbranch-no { background:  yellow !important; color: #111; }
+
+        .cstat-skip { background: #ddd; color: #111; }
+        .fstat-skip { background: #ddd; color: #111 !important; }
+        .cbranch-skip { background: #ddd !important; color: #111; }
+
+        .missing-if-branch {
+            display: inline-block;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: black;
+            color: yellow;
+        }
+
+        .skip-if-branch {
+            display: none;
+            margin-right: 10px;
+            position: relative;
+            padding: 0 4px;
+            background: #ccc;
+            color: white;
+        }
+
+        .missing-if-branch .typ, .skip-if-branch .typ {
+            color: inherit !important;
+        }
+
+        .entity, .metric { font-weight: bold; }
+        .metric { display: inline-block; border: 1px solid #333; padding: 0.3em; background: white; }
+        .metric small { font-size: 80%; font-weight: normal; color: #666; }
+
+        div.coverage-summary table { border-collapse: collapse; margin: 3em; font-size: 110%; }
+        div.coverage-summary td, div.coverage-summary table  th { margin: 0; padding: 0.25em 1em; border-top: 1px solid #666; border-bottom: 1px solid #666; }
+        div.coverage-summary th { text-align: left; border: 1px solid #666; background: #eee; font-weight: normal; }
+        div.coverage-summary th.file { border-right: none !important; }
+        div.coverage-summary th.pic { border-left: none !important; text-align: right; }
+        div.coverage-summary th.pct { border-right: none !important; }
+        div.coverage-summary th.abs { border-left: none !important; text-align: right; }
+        div.coverage-summary td.pct { text-align: right; border-left: 1px solid #666; }
+        div.coverage-summary td.abs { text-align: right; font-size: 90%; color: #444; border-right: 1px solid #666; }
+        div.coverage-summary td.file { text-align: right; border-left: 1px solid #666; white-space: nowrap;  }
+        div.coverage-summary td.pic { min-width: 120px !important;  }
+        div.coverage-summary a:link { color: #000; }
+        div.coverage-summary a:visited { color: #333; }
+        div.coverage-summary tfoot td { border-top: 1px solid #666; }
+
+        div.coverage-summary .yui3-datatable-sort-indicator, div.coverage-summary .dummy-sort-indicator {
+            height: 10px;
+            width: 7px;
+            display: inline-block;
+            margin-left: 0.5em;
+        }
+        div.coverage-summary .yui3-datatable-sort-indicator {
+            background: no-repeat scroll 0 0 transparent;
+        }
+        div.coverage-summary .yui3-datatable-sorted .yui3-datatable-sort-indicator {
+            background-position: 0 -20px;
+        }
+        div.coverage-summary .yui3-datatable-sorted-desc .yui3-datatable-sort-indicator {
+            background-position: 0 -10px;
+        }
+
+        .high { background: #b5d592 !important; }
+        .medium { background: #ffe87c !important; }
+        .low { background: #fc8c84 !important; }
+
+        span.cover-fill, span.cover-empty {
+            display:inline-block;
+            border:1px solid #444;
+            background: white;
+            height: 12px;
+        }
+        span.cover-fill {
+            background: #ccc;
+            border-right: 1px solid #444;
+        }
+        span.cover-empty {
+            background: white;
+            border-left: none;
+        }
+        span.cover-full {
+            border-right: none !important;
+        }
+        pre.prettyprint {
+            border: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .com { color: #999 !important; }
+        .ignore-none { color: #999; font-weight: normal; }
+
+    </style>
+</head>
+<body>
+<div class="header low">
+    <h1 style="font-weight: bold;">
+        <a href="https://github.com/npmtest/node-npmtest-fuse-bindings">npmtest-fuse-bindings (v0.0.1)</a>
+    </h1>
+    <h1>Code coverage report for <span class="entity">node-npmtest-fuse-bindings/node_modules/fuse-bindings/index.js</span></h1>
+    <h2>
+        
+        Statements: <span class="metric">0.5% <small>(1 / 199)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Branches: <span class="metric">0% <small>(0 / 43)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Functions: <span class="metric">0% <small>(0 / 15)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        
+        Lines: <span class="metric">0.53% <small>(1 / 187)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> » <a href="index.html">node-npmtest-fuse-bindings/node_modules/fuse-bindings/</a> » index.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tbody><tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225</td><td class="line-coverage"><span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">var bindings = require('bindings')
+<span class="cstat-no" title="statement not covered">var fuse = bindings('fuse_bindings')</span>
+<span class="cstat-no" title="statement not covered">var fs = require('fs')</span>
+<span class="cstat-no" title="statement not covered">var os = require('os')</span>
+<span class="cstat-no" title="statement not covered">var xtend = require('xtend')</span>
+<span class="cstat-no" title="statement not covered">var path = require('path')</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">var noop = <span class="fstat-no" title="function not covered">function () {</span>}</span>
+<span class="cstat-no" title="statement not covered">var call = <span class="fstat-no" title="function not covered">function (cb) {</span> <span class="cstat-no" title="statement not covered">cb() }</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">var IS_OSX = os.platform() === 'darwin'</span>
+<span class="cstat-no" title="statement not covered">var OSX_FOLDER_ICON = '/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericFolderIcon.icns'</span>
+<span class="cstat-no" title="statement not covered">var HAS_FOLDER_ICON = IS_OSX &amp;&amp; fs.existsSync(OSX_FOLDER_ICON)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">var FuseBuffer = <span class="fstat-no" title="function not covered">function () {</span></span>
+<span class="cstat-no" title="statement not covered">  this.length = 0</span>
+<span class="cstat-no" title="statement not covered">  this.parent = undefined</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered">FuseBuffer.prototype = Buffer.prototype</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">fuse.setBuffer(FuseBuffer)</span>
+<span class="cstat-no" title="statement not covered">fuse.setCallback(<span class="fstat-no" title="function not covered">function (index, callback) {</span></span>
+<span class="cstat-no" title="statement not covered">  return callback.bind(null, index)</span>
+})
+&nbsp;
+<span class="cstat-no" title="statement not covered">exports.context = <span class="fstat-no" title="function not covered">function () {</span></span>
+<span class="cstat-no" title="statement not covered">  var ctx = {}</span>
+<span class="cstat-no" title="statement not covered">  fuse.populateContext(ctx)</span>
+<span class="cstat-no" title="statement not covered">  return ctx</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered">exports.mount = <span class="fstat-no" title="function not covered">function (mnt, ops, opts, cb) {</span></span>
+<span class="cstat-no" title="statement not covered">  if (typeof opts === 'function') <span class="cstat-no" title="statement not covered">return exports.mount(mnt, ops, null, opts)</span></span>
+<span class="cstat-no" title="statement not covered">  if (!cb) <span class="cstat-no" title="statement not covered">cb = noop</span></span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  ops = xtend(ops, opts) </span>// clone
+<span class="cstat-no" title="statement not covered">  if (/\*|(^,)fuse-bindings(,$)/.test(process.env.DEBUG)) <span class="cstat-no" title="statement not covered">ops.options = ['debug'].concat(ops.options || [])</span></span>
+<span class="cstat-no" title="statement not covered">  mnt = path.resolve(mnt)</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (ops.displayFolder &amp;&amp; IS_OSX) { // only works on osx</span>
+<span class="cstat-no" title="statement not covered">    if (!ops.options) <span class="cstat-no" title="statement not covered">ops.options = []</span></span>
+<span class="cstat-no" title="statement not covered">    ops.options.push('volname=' + path.basename(mnt))</span>
+<span class="cstat-no" title="statement not covered">    if (HAS_FOLDER_ICON) <span class="cstat-no" title="statement not covered">ops.options.push('volicon=' + OSX_FOLDER_ICON)</span></span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var callback = <span class="fstat-no" title="function not covered">function (err) {</span></span>
+<span class="cstat-no" title="statement not covered">    callback = noop</span>
+<span class="cstat-no" title="statement not covered">    setImmediate(cb.bind(null, err))</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var init = ops.init || call</span>
+<span class="cstat-no" title="statement not covered">  ops.init = <span class="fstat-no" title="function not covered">function (next) {</span></span>
+<span class="cstat-no" title="statement not covered">    callback()</span>
+<span class="cstat-no" title="statement not covered">    if (init.length &gt; 1) <span class="cstat-no" title="statement not covered">init(mnt, next) </span>// backwards compat for now</span>
+    else <span class="cstat-no" title="statement not covered">init(next)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var error = ops.error || call</span>
+<span class="cstat-no" title="statement not covered">  ops.error = <span class="fstat-no" title="function not covered">function (next) {</span></span>
+<span class="cstat-no" title="statement not covered">    callback(new Error('Mount failed'))</span>
+<span class="cstat-no" title="statement not covered">    error(next)</span>
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (!ops.getattr) { // we need this for unmount to work on osx</span>
+<span class="cstat-no" title="statement not covered">    ops.getattr = <span class="fstat-no" title="function not covered">function (path, cb) {</span></span>
+<span class="cstat-no" title="statement not covered">      if (path !== '/') <span class="cstat-no" title="statement not covered">return cb(fuse.EPERM)</span></span>
+<span class="cstat-no" title="statement not covered">      cb(null, {mtime: new Date(0), atime: new Date(0), ctime: new Date(0), mode: 16877, size: 4096})</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  var mount = <span class="fstat-no" title="function not covered">function () {</span></span>
+    // TODO: I got a feeling this can be done better
+<span class="cstat-no" title="statement not covered">    if (os.platform() !== 'win32') {</span>
+<span class="cstat-no" title="statement not covered">      fs.stat(mnt, <span class="fstat-no" title="function not covered">function (err, stat) {</span></span>
+<span class="cstat-no" title="statement not covered">        if (err) <span class="cstat-no" title="statement not covered">return cb(new Error('Mountpoint does not exist'))</span></span>
+<span class="cstat-no" title="statement not covered">        if (!stat.isDirectory()) <span class="cstat-no" title="statement not covered">return cb(new Error('Mountpoint is not a directory'))</span></span>
+<span class="cstat-no" title="statement not covered">        fs.stat(path.join(mnt, '..'), <span class="fstat-no" title="function not covered">function (_, parent) {</span></span>
+<span class="cstat-no" title="statement not covered">          if (parent &amp;&amp; parent.dev !== stat.dev) <span class="cstat-no" title="statement not covered">return cb(new Error('Mountpoint in use'))</span></span>
+<span class="cstat-no" title="statement not covered">          fuse.mount(mnt, ops)</span>
+        })
+      })
+    } else {
+<span class="cstat-no" title="statement not covered">      fuse.mount(mnt, ops)</span>
+    }
+  }
+&nbsp;
+<span class="cstat-no" title="statement not covered">  if (!ops.force) <span class="cstat-no" title="statement not covered">return mount()</span></span>
+<span class="cstat-no" title="statement not covered">  exports.unmount(mnt, mount)</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered">exports.unmount = <span class="fstat-no" title="function not covered">function (mnt, cb) {</span></span>
+<span class="cstat-no" title="statement not covered">  fuse.unmount(path.resolve(mnt), cb)</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered">exports.errno = <span class="fstat-no" title="function not covered">function (code) {</span></span>
+<span class="cstat-no" title="statement not covered">  return (code &amp;&amp; exports[code.toUpperCase()]) || -1</span>
+}
+&nbsp;
+<span class="cstat-no" title="statement not covered">exports.EPERM = -1</span>
+<span class="cstat-no" title="statement not covered">exports.ENOENT = -2</span>
+<span class="cstat-no" title="statement not covered">exports.ESRCH = -3</span>
+<span class="cstat-no" title="statement not covered">exports.EINTR = -4</span>
+<span class="cstat-no" title="statement not covered">exports.EIO = -5</span>
+<span class="cstat-no" title="statement not covered">exports.ENXIO = -6</span>
+<span class="cstat-no" title="statement not covered">exports.E2BIG = -7</span>
+<span class="cstat-no" title="statement not covered">exports.ENOEXEC = -8</span>
+<span class="cstat-no" title="statement not covered">exports.EBADF = -9</span>
+<span class="cstat-no" title="statement not covered">exports.ECHILD = -10</span>
+<span class="cstat-no" title="statement not covered">exports.EAGAIN = -11</span>
+<span class="cstat-no" title="statement not covered">exports.ENOMEM = -12</span>
+<span class="cstat-no" title="statement not covered">exports.EACCES = -13</span>
+<span class="cstat-no" title="statement not covered">exports.EFAULT = -14</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTBLK = -15</span>
+<span class="cstat-no" title="statement not covered">exports.EBUSY = -16</span>
+<span class="cstat-no" title="statement not covered">exports.EEXIST = -17</span>
+<span class="cstat-no" title="statement not covered">exports.EXDEV = -18</span>
+<span class="cstat-no" title="statement not covered">exports.ENODEV = -19</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTDIR = -20</span>
+<span class="cstat-no" title="statement not covered">exports.EISDIR = -21</span>
+<span class="cstat-no" title="statement not covered">exports.EINVAL = -22</span>
+<span class="cstat-no" title="statement not covered">exports.ENFILE = -23</span>
+<span class="cstat-no" title="statement not covered">exports.EMFILE = -24</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTTY = -25</span>
+<span class="cstat-no" title="statement not covered">exports.ETXTBSY = -26</span>
+<span class="cstat-no" title="statement not covered">exports.EFBIG = -27</span>
+<span class="cstat-no" title="statement not covered">exports.ENOSPC = -28</span>
+<span class="cstat-no" title="statement not covered">exports.ESPIPE = -29</span>
+<span class="cstat-no" title="statement not covered">exports.EROFS = -30</span>
+<span class="cstat-no" title="statement not covered">exports.EMLINK = -31</span>
+<span class="cstat-no" title="statement not covered">exports.EPIPE = -32</span>
+<span class="cstat-no" title="statement not covered">exports.EDOM = -33</span>
+<span class="cstat-no" title="statement not covered">exports.ERANGE = -34</span>
+<span class="cstat-no" title="statement not covered">exports.EDEADLK = -35</span>
+<span class="cstat-no" title="statement not covered">exports.ENAMETOOLONG = -36</span>
+<span class="cstat-no" title="statement not covered">exports.ENOLCK = -37</span>
+<span class="cstat-no" title="statement not covered">exports.ENOSYS = -38</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTEMPTY = -39</span>
+<span class="cstat-no" title="statement not covered">exports.ELOOP = -40</span>
+<span class="cstat-no" title="statement not covered">exports.EWOULDBLOCK = -11</span>
+<span class="cstat-no" title="statement not covered">exports.ENOMSG = -42</span>
+<span class="cstat-no" title="statement not covered">exports.EIDRM = -43</span>
+<span class="cstat-no" title="statement not covered">exports.ECHRNG = -44</span>
+<span class="cstat-no" title="statement not covered">exports.EL2NSYNC = -45</span>
+<span class="cstat-no" title="statement not covered">exports.EL3HLT = -46</span>
+<span class="cstat-no" title="statement not covered">exports.EL3RST = -47</span>
+<span class="cstat-no" title="statement not covered">exports.ELNRNG = -48</span>
+<span class="cstat-no" title="statement not covered">exports.EUNATCH = -49</span>
+<span class="cstat-no" title="statement not covered">exports.ENOCSI = -50</span>
+<span class="cstat-no" title="statement not covered">exports.EL2HLT = -51</span>
+<span class="cstat-no" title="statement not covered">exports.EBADE = -52</span>
+<span class="cstat-no" title="statement not covered">exports.EBADR = -53</span>
+<span class="cstat-no" title="statement not covered">exports.EXFULL = -54</span>
+<span class="cstat-no" title="statement not covered">exports.ENOANO = -55</span>
+<span class="cstat-no" title="statement not covered">exports.EBADRQC = -56</span>
+<span class="cstat-no" title="statement not covered">exports.EBADSLT = -57</span>
+<span class="cstat-no" title="statement not covered">exports.EDEADLOCK = -35</span>
+<span class="cstat-no" title="statement not covered">exports.EBFONT = -59</span>
+<span class="cstat-no" title="statement not covered">exports.ENOSTR = -60</span>
+<span class="cstat-no" title="statement not covered">exports.ENODATA = -61</span>
+<span class="cstat-no" title="statement not covered">exports.ETIME = -62</span>
+<span class="cstat-no" title="statement not covered">exports.ENOSR = -63</span>
+<span class="cstat-no" title="statement not covered">exports.ENONET = -64</span>
+<span class="cstat-no" title="statement not covered">exports.ENOPKG = -65</span>
+<span class="cstat-no" title="statement not covered">exports.EREMOTE = -66</span>
+<span class="cstat-no" title="statement not covered">exports.ENOLINK = -67</span>
+<span class="cstat-no" title="statement not covered">exports.EADV = -68</span>
+<span class="cstat-no" title="statement not covered">exports.ESRMNT = -69</span>
+<span class="cstat-no" title="statement not covered">exports.ECOMM = -70</span>
+<span class="cstat-no" title="statement not covered">exports.EPROTO = -71</span>
+<span class="cstat-no" title="statement not covered">exports.EMULTIHOP = -72</span>
+<span class="cstat-no" title="statement not covered">exports.EDOTDOT = -73</span>
+<span class="cstat-no" title="statement not covered">exports.EBADMSG = -74</span>
+<span class="cstat-no" title="statement not covered">exports.EOVERFLOW = -75</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTUNIQ = -76</span>
+<span class="cstat-no" title="statement not covered">exports.EBADFD = -77</span>
+<span class="cstat-no" title="statement not covered">exports.EREMCHG = -78</span>
+<span class="cstat-no" title="statement not covered">exports.ELIBACC = -79</span>
+<span class="cstat-no" title="statement not covered">exports.ELIBBAD = -80</span>
+<span class="cstat-no" title="statement not covered">exports.ELIBSCN = -81</span>
+<span class="cstat-no" title="statement not covered">exports.ELIBMAX = -82</span>
+<span class="cstat-no" title="statement not covered">exports.ELIBEXEC = -83</span>
+<span class="cstat-no" title="statement not covered">exports.EILSEQ = -84</span>
+<span class="cstat-no" title="statement not covered">exports.ERESTART = -85</span>
+<span class="cstat-no" title="statement not covered">exports.ESTRPIPE = -86</span>
+<span class="cstat-no" title="statement not covered">exports.EUSERS = -87</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTSOCK = -88</span>
+<span class="cstat-no" title="statement not covered">exports.EDESTADDRREQ = -89</span>
+<span class="cstat-no" title="statement not covered">exports.EMSGSIZE = -90</span>
+<span class="cstat-no" title="statement not covered">exports.EPROTOTYPE = -91</span>
+<span class="cstat-no" title="statement not covered">exports.ENOPROTOOPT = -92</span>
+<span class="cstat-no" title="statement not covered">exports.EPROTONOSUPPORT = -93</span>
+<span class="cstat-no" title="statement not covered">exports.ESOCKTNOSUPPORT = -94</span>
+<span class="cstat-no" title="statement not covered">exports.EOPNOTSUPP = -95</span>
+<span class="cstat-no" title="statement not covered">exports.EPFNOSUPPORT = -96</span>
+<span class="cstat-no" title="statement not covered">exports.EAFNOSUPPORT = -97</span>
+<span class="cstat-no" title="statement not covered">exports.EADDRINUSE = -98</span>
+<span class="cstat-no" title="statement not covered">exports.EADDRNOTAVAIL = -99</span>
+<span class="cstat-no" title="statement not covered">exports.ENETDOWN = -100</span>
+<span class="cstat-no" title="statement not covered">exports.ENETUNREACH = -101</span>
+<span class="cstat-no" title="statement not covered">exports.ENETRESET = -102</span>
+<span class="cstat-no" title="statement not covered">exports.ECONNABORTED = -103</span>
+<span class="cstat-no" title="statement not covered">exports.ECONNRESET = -104</span>
+<span class="cstat-no" title="statement not covered">exports.ENOBUFS = -105</span>
+<span class="cstat-no" title="statement not covered">exports.EISCONN = -106</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTCONN = -107</span>
+<span class="cstat-no" title="statement not covered">exports.ESHUTDOWN = -108</span>
+<span class="cstat-no" title="statement not covered">exports.ETOOMANYREFS = -109</span>
+<span class="cstat-no" title="statement not covered">exports.ETIMEDOUT = -110</span>
+<span class="cstat-no" title="statement not covered">exports.ECONNREFUSED = -111</span>
+<span class="cstat-no" title="statement not covered">exports.EHOSTDOWN = -112</span>
+<span class="cstat-no" title="statement not covered">exports.EHOSTUNREACH = -113</span>
+<span class="cstat-no" title="statement not covered">exports.EALREADY = -114</span>
+<span class="cstat-no" title="statement not covered">exports.EINPROGRESS = -115</span>
+<span class="cstat-no" title="statement not covered">exports.ESTALE = -116</span>
+<span class="cstat-no" title="statement not covered">exports.EUCLEAN = -117</span>
+<span class="cstat-no" title="statement not covered">exports.ENOTNAM = -118</span>
+<span class="cstat-no" title="statement not covered">exports.ENAVAIL = -119</span>
+<span class="cstat-no" title="statement not covered">exports.EISNAM = -120</span>
+<span class="cstat-no" title="statement not covered">exports.EREMOTEIO = -121</span>
+<span class="cstat-no" title="statement not covered">exports.EDQUOT = -122</span>
+<span class="cstat-no" title="statement not covered">exports.ENOMEDIUM = -123</span>
+<span class="cstat-no" title="statement not covered">exports.EMEDIUMTYPE = -124</span>
+&nbsp;
+&nbsp;</pre></td></tr>
+</tbody></table></pre>
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a> at Thu Apr 20 2017 15:12:21 GMT+0000 (UTC)</div>
+</div>
+
+
+</body></html>
